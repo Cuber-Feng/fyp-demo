@@ -1,0 +1,7 @@
+.app { max-width: 720px; margin: 0 auto; padding: 24px; font-family: system-ui, sans-serif; }
+.input-row { display: flex; gap: 8px; margin-bottom: 8px; }
+.input-row input { flex: 1; padding: 6px 10px; }
+.bars { width: 100%; background: #f8fafc; border-radius: 8px; }
+.controls { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; margin: 12px 0; }
+.explain { padding: 12px; background: #eff6ff; border-left: 4px solid #3b82f6; border-radius: 4px; }
+.error { color: #dc2626; }
