@@ -1,19 +1,13 @@
-# FYP Demo
+# Algorithm Lab
 
-> This is a demo of my FYP
+An interactive algorithm visualizer. Choose an algorithm from the categorized sidebar, enter an array, and step through its execution.
 
-## Structure
+## Algorithms
 
-```
-src/
-├─ algorithms/bubbleSort.js
-├─ hooks/usePlayer.js
-├─ components/
-│  ├─ ArrayBars.jsx
-│  └─ ControlBar.jsx
-├─ App.jsx
-└─ App.css
-```
+- **Sorting**
+  - Bubble Sort
+  - Selection Sort
+  - Insertion Sort
 
-## Other
+Add algorithms to `src/algorithms/registry.js` to make them available in the sidebar. Each algorithm returns steps with the same `state`, `highlight`, `sorted`, and `explanation` shape, so the existing player and visualization can be reused.
 

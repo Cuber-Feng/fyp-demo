@@ -1,5 +1,5 @@
 export default function ArrayBars({ values, highlight, sorted }) {
-  const W = 600, H = 300, pad = 20;
+  const W = 400, H = 200, pad = 20;
   const max = Math.max(...values, 1);
   const barW = (W - pad * 2) / values.length;
 
@@ -14,7 +14,7 @@ export default function ArrayBars({ values, highlight, sorted }) {
         return (
           <g key={i}>
             <rect x={x + 2} y={H - pad - h} width={barW - 4} height={h}
-                  rx="3" fill={colorOf(i)} style={{ transition: 'all 0.3s' }} />
+                  rx="3" fill={colorOf(i)} style={{ transition: 'all 0.1s' }} />
             <text x={x + barW / 2} y={H - pad - h - 6}
                   textAnchor="middle" fontSize="12" fill="currentColor">{v}</text>
           </g>
