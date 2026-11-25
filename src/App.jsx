@@ -9,10 +9,10 @@ const MAX_LEN = 20;
 
 function parseInput(text) {
   const parts = text.split(/[\s,，]+/).filter(Boolean);
-  if (parts.length < 2) return { error: '请至少输入 2 个数字' };
-  if (parts.length > MAX_LEN) return { error: `最多支持 ${MAX_LEN} 个数字` };
+  if (parts.length < 2) return { error: 'Please enter at least 2 numbers' };
+  if (parts.length > MAX_LEN) return { error: `Maximum ${MAX_LEN} numbers supported` };
   const nums = parts.map(Number);
-  if (nums.some((n) => !Number.isFinite(n))) return { error: '只能输入数字，用逗号或空格分隔' };
+  if (nums.some((n) => !Number.isFinite(n))) return { error: 'Only numbers allowed, separated by commas or spaces' };
   return { nums };
 }
 
@@ -33,11 +33,11 @@ export default function App() {
 
   return (
     <div className="app">
-      <h1>Algorithm Visualizer · Demo</h1>
+      <h1>Demo</h1>
 
       <div className="input-row">
         <input value={text} onChange={(e) => setText(e.target.value)} />
-        <button onClick={apply}>应用</button>
+        <button onClick={apply}>Apply</button>
       </div>
       {error && <p className="error">{error}</p>}
 
@@ -47,7 +47,7 @@ export default function App() {
       <ControlBar player={player} />
 
       <div className="explain">
-        <strong>当前步骤解释：</strong> {player.step.explanation}
+        <strong>Explanation:</strong> {player.step.explanation}
       </div>
     </div>
   );

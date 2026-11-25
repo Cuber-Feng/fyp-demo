@@ -12,28 +12,32 @@ export function bubbleSort(input) {
   const n = a.length;
   const sorted = [];
   const steps = [];
+  let compareCount = 0;
+  let swapCount = 0;
 
   const snap = (highlight, explanation) =>
     steps.push({ state: [...a], highlight, sorted: [...sorted], explanation });
 
-  snap([], '初始数组。冒泡排序每一轮都会把当前未排序部分的最大值"冒泡"到右端。');
+  snap([], 'Initial array. Bubble sort will bubble the largest element in each round to the right.');
 
   for (let i = 0; i < n - 1; i++) {
     for (let j = 0; j < n - 1 - i; j++) {
-      snap([j, j + 1], `比较 ${a[j]} 和 ${a[j + 1]}。`);
+      compareCount++;
+      snap([j, j + 1], `Comparing ${a[j]} and ${a[j + 1]}. (Swap: ${swapCount}, Compare: ${compareCount})`);
       if (a[j] > a[j + 1]) {
         const left = a[j], right = a[j + 1];
         [a[j], a[j + 1]] = [a[j + 1], a[j]];
-        snap([j, j + 1], `${left} > ${right}，顺序错误，所以交换它们。`);
+        swapCount++;
+        snap([j, j + 1], `${left} > ${right}, incorrect order, swapping them. (Swap: ${swapCount}, Compare: ${compareCount})`);
       } else {
-        snap([j, j + 1], `${a[j]} ≤ ${a[j + 1]}，顺序正确，不需要交换。`);
+        snap([j, j + 1], `${a[j]} ≤ ${a[j + 1]}, correct order, no swap needed. (Swap: ${swapCount}, Compare: ${compareCount})`);
       }
     }
     sorted.push(n - 1 - i);
-    snap([], `第 ${i + 1} 轮结束：${a[n - 1 - i]} 已经到达最终位置。`);
+    snap([], `No. ${i + 1} round finished: ${a[n - 1 - i]} has reached its final position.`);
   }
 
   sorted.push(0);
-  snap([], '排序完成。');
+  snap([], `Sorting completed. Array length: ${n}, Total comparisons: ${compareCount}, total swaps: ${swapCount}`);
   return steps;
 }
