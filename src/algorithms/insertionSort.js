@@ -30,6 +30,7 @@ export function insertionSort(input) {
       if (values[j] <= current) break;
 
       values[j + 1] = values[j];
+      values[j] = current;
       shifts++;
       
       snapshot(
