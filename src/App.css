@@ -1,7 +1,7 @@
-
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap');
 
 :root {
-  font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  font-family: "Inter", ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
   color: #172033;
   background: #f4f6fb;
   font-synthesis: none;
@@ -46,6 +46,14 @@ input {
   border-right: 1px solid #e6eaf1;
   overflow-y: auto;
   overscroll-behavior: contain;
+}
+
+.sidebar-header {
+  display: contents;
+}
+
+.sidebar-toggle {
+  display: none;
 }
 
 .brand {
@@ -129,7 +137,7 @@ input {
   min-height: 0;
   height: 100%;
   margin: 0 auto;
-  padding: clamp(5px, 2vw, 14px);
+  padding: clamp(8px, 2vw, 14px);
   overflow-y: auto;
   overscroll-behavior-y: contain;
 }
@@ -177,6 +185,131 @@ input {
   font-size: 13px;
 }
 
+.array-generator {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: end;
+  gap: 12px 18px;
+  padding: 14px;
+  margin-bottom: 12px;
+  /* border: 1px solid #e7eaf1;
+  background: #f8f9fc; */
+}
+
+.array-generator label {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: #536078;
+  font-size: 13px;
+}
+
+.generator-length,
+.generator-order {
+  flex-direction: column;
+  align-items: flex-start !important;
+  gap: 5px !important;
+}
+
+.generator-length input,
+.generator-order select {
+  height: 36px;
+  border: 1px solid #dfe4ed;
+  background: #fff;
+  color: #34415a;
+  font: inherit;
+}
+
+.generator-length input {
+  width: 150px;
+  height: 20px;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  accent-color: var(--secondary-color);
+}
+
+.generator-order select {
+  min-width: 144px;
+  padding: 6px 28px 6px 8px;
+}
+
+.generator-duplicates {
+  min-height: 36px;
+}
+
+.generator-duplicates input {
+  width: 16px;
+  height: 16px;
+  margin: 0;
+  accent-color: var(--secondary-color);
+}
+
+.array-generator .generate-button {
+  min-height: 36px;
+  padding: 8px 14px;
+  border: 0;
+  background: #315ee8;
+  color: #fff;
+  cursor: pointer;
+  font-weight: 600;
+}
+
+.array-generator .generate-button:hover {
+  background: #254fce;
+}
+
+.algorithm-options {
+  display: flex;
+  justify-content: flex-end;
+  margin: 0 0 10px;
+}
+
+.early-stop-toggle {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  color: #536078;
+  cursor: pointer;
+  font-size: 13px;
+}
+
+.early-stop-toggle input {
+  appearance: none;
+  position: relative;
+  width: 38px;
+  height: 22px;
+  margin: 0;
+  border: 0;
+  background: #c5ccda;
+  cursor: pointer;
+  transition: background-color 120ms ease;
+}
+
+.early-stop-toggle input::before {
+  position: absolute;
+  top: 3px;
+  left: 3px;
+  width: 16px;
+  height: 16px;
+  background: #fff;
+  content: '';
+  transition: transform 120ms ease;
+}
+
+.early-stop-toggle input:checked {
+  background: var(--secondary-color);
+}
+
+.early-stop-toggle input:checked::before {
+  transform: translateX(16px);
+}
+
+.early-stop-toggle input:focus-visible {
+  outline: 2px solid var(--primary-color);
+  outline-offset: 2px;
+}
+
 .input-row {
   display: flex;
   gap: 8px;
@@ -198,7 +331,7 @@ input {
 }
 
 .input-row button {
-  padding: 9px 17px;
+  padding: 0px 10px;
   border: 0;
   /* border-radius: 8px; */
   background: var(--primary-color);
@@ -212,12 +345,10 @@ input {
 }
 
 .bars {
-  width: 400px;
+  max-width: 100%;
   height: 200px;
   display: flex;
   margin: 0 auto;
-  /* border-radius: 8px; */
-  /* background: #f8fafc; */
 }
 
 .controls {
@@ -275,12 +406,12 @@ input {
 .explain strong {
   color: var(--text-color-light);
   background: var(--secondary-color);
-  padding: 5px 5px;
+  padding: 5px 12px;
 }
 
 .explain span {
   flex: 1;
-  padding: 5px 5px;
+  padding: 5px 10px;
   font-size: 13px;
 }
 
@@ -300,7 +431,7 @@ details.Textbook {
   box-shadow: 0 8px 30px rgb(34 48 78 / 4%);
 }
 
-details.Textbook > summary {
+details.Textbook>summary {
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -309,7 +440,7 @@ details.Textbook > summary {
   list-style: none;
 }
 
-details.Textbook > summary::-webkit-details-marker {
+details.Textbook>summary::-webkit-details-marker {
   display: none;
 }
 
@@ -328,7 +459,7 @@ details.Textbook > summary::-webkit-details-marker {
   transition: transform 150ms ease;
 }
 
-details.Textbook[open] > summary {
+details.Textbook[open]>summary {
   margin-bottom: 16px;
 }
 
@@ -350,13 +481,58 @@ details.Textbook[open] .textbook-chevron {
 
   .sidebar {
     max-height: 45dvh;
-    padding: 16px 18px 14px;
+    padding: 10px 18px;
     border-right: 0;
     border-bottom: 1px solid #e6eaf1;
   }
 
+  .sidebar-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    min-height: 40px;
+  }
+
   .brand {
-    padding: 0 4px 16px;
+    padding: 0 4px;
+  }
+
+  .brand small {
+    display: none;
+  }
+
+  .sidebar-toggle {
+    display: grid;
+    width: 40px;
+    height: 40px;
+    place-items: center;
+    border: 1px solid #e2e7f0;
+    background: #fff;
+    color: #536078;
+    cursor: pointer;
+  }
+
+  .sidebar-toggle-icon {
+    width: 9px;
+    height: 9px;
+    border-right: 2px solid currentColor;
+    border-bottom: 2px solid currentColor;
+    transform: rotate(45deg) translate(-2px, -2px);
+    transition: transform 150ms ease;
+  }
+
+  .sidebar.is-open .sidebar-toggle-icon {
+    transform: rotate(225deg) translate(-2px, -2px);
+  }
+
+  .sidebar:not(.is-open) .algorithm-nav {
+    display: none;
+  }
+
+  .sidebar.is-open .algorithm-nav {
+    display: grid;
+    gap: 14px;
+    margin-top: 12px;
   }
 
   .algorithm-nav {
@@ -364,12 +540,11 @@ details.Textbook[open] .textbook-chevron {
   }
 
   .algorithm-list {
-    display: flex;
-    flex-wrap: wrap;
+    display: grid;
   }
 
   .algorithm-link {
-    width: auto;
+    width: 100%;
   }
 
   .sidebar-footer {
@@ -377,7 +552,7 @@ details.Textbook[open] .textbook-chevron {
   }
 
   .workspace {
-    padding: 28px 18px;
+    padding: 8px 8px;
   }
 }
 
@@ -394,5 +569,18 @@ details.Textbook[open] .textbook-chevron {
   .controls span {
     width: 100%;
     margin-left: 0;
+  }
+
+  .array-generator {
+    /* align-items: stretch; */
+    gap: 12px;
+  }
+
+  .generator-order {
+    flex: 1;
+  }
+
+  .generator-order select {
+    width: fit-content;
   }
 }

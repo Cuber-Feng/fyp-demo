@@ -7,8 +7,8 @@ export default function ControlBar({ player }) {
       <button onClick={toggle}>{isPlaying ? '⏸ Pause' : '▶ Play'}</button>
       <button onClick={next} disabled={index === total - 1}>Next ▶</button>
       <label>
-        Speed {speed}x
-        <input type="range" min="0.5" max="4" step="0.5"
+        Speed {speed.toFixed(1)}x
+        <input type="range" min="0.5" max="5" step="0.5"
                value={speed} onChange={(e) => setSpeed(Number(e.target.value))} />
       </label>
       <span>Step {index + 1} / {total}</span>

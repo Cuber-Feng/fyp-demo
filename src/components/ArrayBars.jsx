@@ -1,7 +1,9 @@
 export default function ArrayBars({ values, highlight, sorted }) {
-  const W = 400, H = 200, pad = 20;
+  const barW = 30;
+  const H = 200, pad = 20;
+  const W = Math.max(values.length * barW + 40, 100);
   const max = Math.max(...values, 1);
-  const barW = (W - pad * 2) / values.length;
+  // const barW = (W - pad * 2) / values.length;
 
   const colorOf = (i) =>
     highlight.includes(i) ? '#f59e0b' : sorted.includes(i) ? '#22c55e' : '#60a5fa';

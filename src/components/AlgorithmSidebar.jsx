@@ -1,14 +1,30 @@
-export default function AlgorithmSidebar({ categories, activeAlgorithmId, onSelect }) {
-  return (
-    <aside className="sidebar">
-      <a className="brand" href="/" aria-label="Algorithm Lab home">
-        <span>
-          <strong>DSA Learning</strong>
-          <small>Data Structures & Algorithms</small>
-        </span>
-      </a>
+import { useState } from 'react';
 
-      <nav className="algorithm-nav" aria-label="Algorithm categories">
+export default function AlgorithmSidebar({ categories, activeAlgorithmId, onSelect }) {
+  const [isOpen, setIsOpen] = useState(false);
+
+  return (
+    <aside className={`sidebar${isOpen ? ' is-open' : ''}`}>
+      <div className="sidebar-header">
+        <a className="brand" href="/" aria-label="Algorithm Lab home">
+          <span>
+            <strong>DSA Learning</strong>
+            <small>Data Structures & Algorithms</small>
+          </span>
+        </a>
+        <button
+          className="sidebar-toggle"
+          type="button"
+          aria-label={isOpen ? 'Close algorithms menu' : 'Open algorithms menu'}
+          aria-expanded={isOpen}
+          aria-controls="algorithm-menu"
+          onClick={() => setIsOpen((open) => !open)}
+        >
+          <span className="sidebar-toggle-icon" aria-hidden="true" />
+        </button>
+      </div>
+
+      <nav className="algorithm-nav" id="algorithm-menu" aria-label="Algorithm categories">
         {categories.map((category) => (
           <section className="algorithm-category" key={category.id}>
             <h2 className="category-label">{category.label}</h2>
@@ -21,7 +37,10 @@ export default function AlgorithmSidebar({ categories, activeAlgorithmId, onSele
                     key={algorithm.id}
                     type="button"
                     aria-current={isActive ? 'page' : undefined}
-                    onClick={() => onSelect(algorithm.id)}
+                    onClick={() => {
+                      onSelect(algorithm.id);
+                      setIsOpen(false);
+                    }}
                   >
                     {algorithm.label}
                   </button>

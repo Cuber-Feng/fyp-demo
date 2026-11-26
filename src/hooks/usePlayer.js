@@ -6,6 +6,7 @@ export function usePlayer(steps) {
   const [isPlaying, setIsPlaying] = useState(false);
   const [speed, setSpeed] = useState(1);
   const last = steps.length - 1;
+  const currentIndex = Math.min(index, Math.max(last, 0));
 
   // 输入变化、步骤重新生成时回到起点
   useEffect(() => {
@@ -30,8 +31,8 @@ export function usePlayer(steps) {
   const toggle = useCallback(() => setIsPlaying((p) => !p), []);
 
   return {
-    step: steps[index],
-    index,
+    step: steps[currentIndex],
+    index: currentIndex,
     total: steps.length,
     isPlaying,
     speed,

@@ -7,7 +7,7 @@
  */
 
 /** @param {number[]} input @returns {Step[]} */
-export function bubbleSort(input) {
+export function bubbleSort(input, earlyStop = false) {
   const a = [...input];
   const n = a.length;
   const sorted = [];
@@ -21,10 +21,12 @@ export function bubbleSort(input) {
   snap([], 'Initial array. Bubble sort will bubble the largest element in each round to the right.');
 
   for (let i = 0; i < n - 1; i++) {
+    let sortedFlag = true;
     for (let j = 0; j < n - 1 - i; j++) {
       compareCount++;
       snap([j, j + 1], `Comparing ${a[j]} and ${a[j + 1]}. (Swap: ${swapCount}, Compare: ${compareCount})`);
       if (a[j] > a[j + 1]) {
+        sortedFlag = false;
         const left = a[j], right = a[j + 1];
         [a[j], a[j + 1]] = [a[j + 1], a[j]];
         swapCount++;
@@ -33,11 +35,16 @@ export function bubbleSort(input) {
         snap([j, j + 1], `${a[j]} ≤ ${a[j + 1]}, correct order, no swap needed. (Swap: ${swapCount}, Compare: ${compareCount})`);
       }
     }
+    if (earlyStop && sortedFlag) {
+      for (let index = n - 1 - i; index >= 0; index--) sorted.push(index);
+      snap([], `No. ${i + 1} round finished: ${a[n - 1 - i]} has reached its final position.`);
+      break;
+    }
     sorted.push(n - 1 - i);
     snap([], `No. ${i + 1} round finished: ${a[n - 1 - i]} has reached its final position.`);
   }
 
-  sorted.push(0);
+  if (!sorted.includes(0)) sorted.push(0);
   snap([], `Sorting completed. Array length: ${n}, Total comparisons: ${compareCount}, total swaps: ${swapCount}`);
   return steps;
 }

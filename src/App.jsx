@@ -3,6 +3,7 @@ import { algorithmCategories } from './algorithms/registry';
 import { usePlayer } from './hooks/usePlayer';
 import AlgorithmSidebar from './components/AlgorithmSidebar';
 import ArrayBars from './components/ArrayBars';
+import ArrayGenerator from './components/ArrayGenerator';
 import ControlBar from './components/ControlBar';
 import './App.css';
 
@@ -21,12 +22,18 @@ export default function App() {
   const [text, setText] = useState('5, 3, 8, 1, 9, 2');
   const [input, setInput] = useState([5, 3, 8, 1, 9, 2]);
   const [error, setError] = useState('');
+  const [earlyStop, setEarlyStop] = useState(false);
   const [algorithmId, setAlgorithmId] = useState('bubble-sort');
   const selectedAlgorithm = algorithmCategories
     .flatMap((category) => category.algorithms)
     .find((algorithm) => algorithm.id === algorithmId) ?? algorithmCategories[0].algorithms[0];
 
-  const steps = useMemo(() => selectedAlgorithm.run(input), [input, selectedAlgorithm]);
+  const steps = useMemo(
+    () => selectedAlgorithm.id === 'bubble-sort'
+      ? selectedAlgorithm.run(input, earlyStop)
+      : selectedAlgorithm.run(input),
+    [input, selectedAlgorithm, earlyStop],
+  );
   const player = usePlayer(steps);
 
   const apply = () => {
@@ -34,6 +41,13 @@ export default function App() {
     if (r.error) return setError(r.error);
     setError('');
     setInput(r.nums);
+  };
+
+  const handleGenerateArray = (values) => {
+    const generatedText = values.join(', ');
+    setText(generatedText);
+    setInput(values);
+    setError('');
   };
 
   return (
@@ -58,24 +72,40 @@ export default function App() {
             </div>
           </div>
 
+          <ArrayGenerator maxLength={MAX_LEN} onGenerate={handleGenerateArray} />
+
           <div className="input-row">
             <input
               aria-label="Input numbers"
               value={text}
-              onChange={(event) => setText(event.target.value)}
+              onChange={(event) => { setText(event.target.value); apply(); }}
               onKeyDown={(event) => {
                 if (event.key === 'Enter') apply();
               }}
             />
-            <button type="button" onClick={apply}>Apply</button>
+            {/* <button type="button" onClick={apply}>Apply</button> */}
           </div>
-          {error && <p className="error" role="alert">{error}</p>}
+          {/* {error && <p className="error" role="alert">{error}</p>} */}
 
           <ArrayBars
             values={player.step.state}
             highlight={player.step.highlight}
             sorted={player.step.sorted}
           />
+          {selectedAlgorithm.id === 'bubble-sort' && (
+            <div className="algorithm-options">
+              <label className="early-stop-toggle" title="Stop after a pass with no swaps">
+                <span>Early stop</span>
+                <input
+                  type="checkbox"
+                  role="switch"
+                  checked={earlyStop}
+                  onChange={(event) => setEarlyStop(event.target.checked)}
+                />
+              </label>
+            </div>
+          )}
+
           <ControlBar player={player} />
 
           <div className="explain" aria-live="polite">
@@ -84,7 +114,14 @@ export default function App() {
         </section>
         <section className="SearchBar" aria-label="Search bar">
           <div className="input-row">
-            <button type="button" onClick={apply}>Search</button>
+            <button type="button" onClick={apply}>
+              <img
+                src="./icons/search.svg"
+                width="28"
+                style={{ filter: 'invert(1)' }}
+                alt="Search"
+              />
+            </button>
             <input
               aria-label="Ask AI"
               placeholder="Ask AI"
