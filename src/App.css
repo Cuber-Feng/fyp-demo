@@ -189,8 +189,8 @@ input {
   display: flex;
   flex-wrap: wrap;
   align-items: end;
-  gap: 12px 18px;
-  padding: 14px;
+  justify-content: space-between;
+  gap: 12px 12px;
   margin-bottom: 12px;
   /* border: 1px solid #e7eaf1;
   background: #f8f9fc; */
@@ -356,7 +356,13 @@ input {
   flex-wrap: wrap;
   gap: 8px;
   align-items: center;
+  justify-content: space-between;
   margin: 12px 0 20px;
+}
+
+.control-buttons {
+  display: flex;
+  gap: 8px;
 }
 
 .controls button {
@@ -390,7 +396,7 @@ input {
 }
 
 .controls span {
-  margin-left: auto;
+  /* margin-left: auto; */
   color: #7a8598;
   font-size: 13px;
 }
@@ -400,10 +406,12 @@ input {
   background: #f3f6ff;
   color: #44516a;
   line-height: 1.5;
-  align-items: center;
+  align-items: stretch;
 }
 
 .explain strong {
+  display: flex;
+  align-items: center;
   color: var(--text-color-light);
   background: var(--secondary-color);
   padding: 5px 12px;
@@ -554,6 +562,10 @@ details.Textbook[open] .textbook-chevron {
   .workspace {
     padding: 8px 8px;
   }
+
+  .control-label{
+    display: none;
+  }
 }
 
 @media (max-width: 480px) {
@@ -567,20 +579,7 @@ details.Textbook[open] .textbook-chevron {
   }
 
   .controls span {
-    width: 100%;
+    /* width: 100%; */
     margin-left: 0;
-  }
-
-  .array-generator {
-    /* align-items: stretch; */
-    gap: 12px;
-  }
-
-  .generator-order {
-    flex: 1;
-  }
-
-  .generator-order select {
-    width: fit-content;
   }
 }

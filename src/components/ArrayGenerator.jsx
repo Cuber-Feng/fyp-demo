@@ -11,6 +11,8 @@ export default function ArrayGenerator({ maxLength, onGenerate }) {
     const order = _order || arrayOrder;
     const values = [];
 
+    console.log(`Generate array with length: ${length}, duplicates: ${duplicates}, order: ${order}`);
+
     if (duplicates) {
       let duplicatesCount = 0;
       let numCounts = new Map();
@@ -21,8 +23,8 @@ export default function ArrayGenerator({ maxLength, onGenerate }) {
         if (numCounts.get(val) > 1) duplicatesCount++;
         if (index == length - 1 && duplicatesCount === 0) {
           // If no duplicates were generated, force a duplicate
-          const duplicateIndex = Math.floor(Math.random() * length);
-          values[duplicateIndex] = values[Math.floor(Math.random() * length)];
+          const duplicateIndex = Math.floor(Math.random() * (length-1));
+          values[index] = values[duplicateIndex];
         }
       }
     } else {
@@ -69,7 +71,7 @@ export default function ArrayGenerator({ maxLength, onGenerate }) {
           <option value="descending">Reverse order</option>
         </select>
       </label>
-      <button className="generate-button" type="button" onClick={generateArray()}>Generate</button>
+      <button className="generate-button" type="button" onClick={(e) => generateArray()}>Generate</button>
     </div>
   );
 }
